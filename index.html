@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Go Todo</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>📝 Todo List</h1>
+
+    <!-- 検索フォーム -->
+    <form method="GET" action="/" style="margin-bottom:1rem;">
+        <input type="text" name="q" placeholder="検索 (タイトルやタグ)">
+        <button>検索</button>
+    </form>
+
+    <ul>
+        {{range $i, $t := .}}
+        <li>
+            <form action="/toggle" method="POST">
+                <input type="hidden" name="index" value="{{$i}}">
+                <input type="checkbox" onchange="this.form.submit()" {{if $t.Done}}checked{{end}}>
+            </form>
+
+            <div class="todo-title {{if $t.Done}}done{{end}}">
+                {{$t.Title}}<br>
+                <small>📅 {{$t.Deadline}} 🏷 {{$t.Tag}}</small>
+            </div>
+
+            <form action="/delete" method="POST">
+                <input type="hidden" name="index" value="{{$i}}">
+                <button style="background-color:#dc2626;">削除</button>
+            </form>
+        </li>
+        {{end}}
+    </ul>
+
+    <!-- 追加フォーム -->
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="新しいタスク">
+        <input type="date" name="deadline">
+        <input type="text" name="tag" placeholder="タグ">
+        <button type="submit">追加</button>
+    </form>
+</body>
+</html>
