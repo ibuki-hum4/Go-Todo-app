@@ -36,7 +36,7 @@ go version
 ### 2. リポジトリのクローンと移動
 
 ```bash
-git clone https://github.com/yourname/go-todo-app.git
+git clone https://github.com/ibuki-hum4/go-todo-app.git
 cd go-todo-app
 ```
 
